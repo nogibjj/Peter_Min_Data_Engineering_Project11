@@ -1,6 +1,5 @@
 import requests
 from dotenv import load_dotenv
-import os
 import json
 import base64
 from pyspark.sql import SparkSession
@@ -8,9 +7,9 @@ from query import query
 
 
 # Load environment variables
-load_dotenv('../.env')
-server_hostname = os.getenv("DATABRICKS_SERVER_HOSTNAME")
-access_token = os.getenv("DATABRICKS_ACCESS_TOKEN")
+load_dotenv()
+server_hostname = 'dbc-c95fb6bf-a65d.cloud.databricks.com'
+access_token = 'dapi25b6f5bff8453cb1628c6b309ee9377e'
 FILESTORE_PATH = "dbfs:/FileStore/peter_min_data_engineering_project11"
 auth_headers = {'Authorization': f'Bearer {access_token}'}
 url = f"https://{server_hostname}/api/2.0"
