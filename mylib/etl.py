@@ -1,6 +1,5 @@
 import requests
 from dotenv import load_dotenv, find_dotenv
-import os
 import json
 import base64
 from pyspark.sql import SparkSession
