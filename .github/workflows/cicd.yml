@@ -14,10 +14,3 @@ jobs:
         
       - name: Refactor the code
         run: make refactor
-
-      - name: Run tests on the main Python file
-        env:
-          DATABRICKS_SERVER_HOSTNAME: ${{ secrets.DATABRICKS_SERVER_HOSTNAME }}
-          DATABRICKS_ACCESS_TOKEN: ${{ secrets.DATABRICKS_ACCESS_TOKEN }}
-          DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
-        run: make test

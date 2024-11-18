@@ -10,3 +10,6 @@ ruff
 # Databricks connection & environment variables handling
 databricks-sql-connector
 python-dotenv
+pyspark
+pandas
+numpy

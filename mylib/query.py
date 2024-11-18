@@ -1,7 +1,5 @@
 """Query the database"""
-from databricks import sql
-from dotenv import load_dotenv
-import os
+from pyspark.sql import SparkSession
 
 
 # This query aims to discover majors with more employed graduates than Computer Science graduates and less unemployed graduates than Computer Science
@@ -16,28 +14,18 @@ AND db2.grad_employed >= db1.grad_employed
 AND db2.grad_unemployed < db1.grad_unemployed;
 """
 
+spark = SparkSession.builder.appName('Databricks_Complex_Query').getOrCreate()
+
 
 def query():
-    load_dotenv()
-    with sql.connect(
-        server_hostname=os.getenv('DATABRICKS_SERVER_HOSTNAME'),
-        http_path=os.getenv('DATABRICKS_HTTP_PATH'),
-        access_token=os.getenv('DATABRICKS_ACCESS_TOKEN')
-    ) as connection:
-        with connection.cursor() as cursor:
-            cursor.execute(complex_sql_query)
-            result = cursor.fetchall()
+    result_df = spark.sql(complex_sql_query)
+    print('Spark SQL executed:\n', result_df.limit(10).toPandas().to_markdown())
 
-            if result:
-                print(f'There are {len(result)} majors which has more employed graduates than CS and less unemployed graduates than CS:')
-                for row in result:
-                    print(row)
-                    print()
-            else:
-                print('There are no majors that have more employed graduates than CS and less unemployed graduates than CS.')
-            
-            cursor.close()
-            connection.close()
+    if result_df.count() > 0:
+        print(f'There are {result_df.count()} majors which has more employed graduates than CS and less unemployed graduates than CS:')
+        result_df.show()
+    else:
+        print('There are no majors that have more employed graduates than CS and less unemployed graduates than CS.')
     
     return 'SQL query successfully executed.'
 
