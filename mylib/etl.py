@@ -12,7 +12,7 @@ load_dotenv()
 server_hostname = os.getenv("DATABRICKS_SERVER_HOSTNAME")
 access_token = os.getenv("DATABRICKS_ACCESS_TOKEN")
 FILESTORE_PATH = "dbfs:/FileStore/peter_min_data_engineering_project11"
-headers = {'Authorization': f'Bearer {access_token}'}
+auth_headers = {'Authorization': f'Bearer {access_token}'}
 url = f"https://{server_hostname}/api/2.0"
 
 LOG_FILE = "Output_WRData.md"
@@ -36,7 +36,7 @@ def perform_request(path, method="POST", data=None):
     response = session.request(
         method=method,
         url=f"{url}{path}",
-        headers=headers,
+        headers=auth_headers,
         data=json.dumps(data) if data else None,
         verify=True
     )
