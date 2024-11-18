@@ -8,7 +8,7 @@ from query import query
 
 
 # Load environment variables
-load_dotenv()
+load_dotenv('../.env')
 server_hostname = os.getenv("DATABRICKS_SERVER_HOSTNAME")
 access_token = os.getenv("DATABRICKS_ACCESS_TOKEN")
 FILESTORE_PATH = "dbfs:/FileStore/peter_min_data_engineering_project11"
